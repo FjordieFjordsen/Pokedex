@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/icons/icons8-pokemon-48.png">
+    <title>PokedexEinzelkarte</title>
+    
+    <link rel="stylesheet" href="style/standard.css">
+    <link rel="stylesheet" href="style/fonts.css">
+    <link rel="stylesheet" href="style/header.css">
+    <link rel="stylesheet" href="style/pokecard.css">
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/modal.css">
+    <script src="script/main.js"></script>
+    <script src="script/design.js"></script>
+    <script src="script/modal.js"></script>
+</head>
+<body onload="init()">
+    <header>
+        <h1>Pokedex - Einzelkarte</h1>
+        <div class="header-link">
+            <a href="#">Einstellung</a> |
+            <a href="#">Kontakt</a> |
+            <a href="#">ÜberUns</a>
+        </div>
+    </header>
+    <section class="main-section">
+
+        <div class="poke" id="pokeContent">
+        </div>
+
+        <div id="modal" class="modal">
+            <button onclick="closeModal()">Close</button>
+        </div>
+
+    </section>
+</body>
+</html>

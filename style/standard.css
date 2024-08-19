@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(22 29 36);
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #0e0d0d;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgb(16 14 15);;
+    border-radius: 20px;
+    border: 1px solid grey;
+}
+
+.main-section {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #32404d;;
+}
+
+.poke {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center; 
+    column-gap: 20px;
+}
