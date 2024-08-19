@@ -50,4 +50,16 @@ window.addEventListener('scroll', function() {
 });
 
 
+function openModal(pokemonId) {
+    const modal = document.getElementById('modal');
+    modal.innerHTML = `
+      <div class="modal-content">
+        <h2>Hallo</h2>
+        <p>Weitere Informationen zum Pokémon folgen hier...</p>
+      </div>
+    `;
+    modal.style.display = 'block';
+  }
+
+
 
