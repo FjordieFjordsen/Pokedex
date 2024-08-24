@@ -1,5 +1,6 @@
 let pokemons = [];
 
+
 async function init() {
     try {
         // Grundlegende Pokémon-Daten abrufen
@@ -17,6 +18,7 @@ async function init() {
     }
 }
 
+
 async function renderPokemonDetails() {
     const promises = pokemons.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
@@ -30,25 +32,28 @@ async function renderPokemonDetails() {
     
     const contentRef = document.getElementById('pokeContent');
     contentRef.innerHTML = allPokemonData.map((pokemon, index) => {
-        // Hier wird jedem Pokémon eine ID zugewiesen
-        return `
-            <div class="pokemon-card" onclick='openModal(${index})'>
-                ${pokemonDesign(pokemon)}
-            </div>
-        `;
+        // Erzeugt direkt die Karte mit pokemonDesign ohne zusätzliches Div
+        return pokemonDesign(pokemon);
     }).join('');
 
     // Speichere die Daten global für den Zugriff im Modal
     pokemons = allPokemonData;
 }
 
+
 function openModal(index) {
-    const pokemon = pokemons[index];
-    if (pokemon) {
+    console.log("Index:", index);
+    if (index >= 0 && index < pokemons.length) {
+      const pokemon = pokemons[index];
+      if (pokemon) {
         document.getElementById('modal').style.display = "flex";
         showDetails(pokemon);
+      }
+    } else {
+      console.error("Ungültiger Index für Pokemon:", index);
     }
-}
+  }
+
 
 function closeModal() {
     const modal = document.getElementById('modal');
@@ -59,17 +64,26 @@ function closeModal() {
     }, 600);
 }
 
+
 function showDetails(pokemon) {
     if (pokemon) {
         const modal = document.getElementById('second-modal');
         modal.innerHTML = `
-            <h2>${capitalizeFirstLetter(pokemon.name)}</h2>
-            <img src="${createPokemonImageUrl(pokemon.id)}" alt="${pokemon.name}">
+            <div class="modal-content-wrapper">
+                <h3>${capitalizeFirstLetter(pokemon.name)}</h3>
+                <div class="pokemon-image-container">
+                    <img src="${createPokemonImageUrl(pokemon.id)}" alt="${pokemon.name}">
+                </div>
+                <div class="pokemon-info">
+                    <!-- Hier können weitere Details hinzugefügt werden -->
+                </div>
+            </div>
         `;
     } else {
         console.error("Das Pokemon-Objekt ist nicht definiert.");
     }
 }
+
 
 window.addEventListener('scroll', function() {
     const header = document.querySelector('header');
