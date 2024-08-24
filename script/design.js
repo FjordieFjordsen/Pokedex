@@ -31,24 +31,18 @@ function pokemonDesign(pokemon) {
     const typeColor = getTypeColor(pokemon.types[0].type.name);
 
     return `
-        <div class="pokemon-card" style="background-color: ${typeColor}" data-id="${pokemon.id}" onclick="openModal()">
-                <h2>${capitalizedName}</h2>
-                <img src="${imageUrl}" alt="${pokemon.name}">
+        <div class="pokemon-card" style="background-color: ${typeColor}" data-id="${pokemon.id}" onclick="openModal(${pokemon.id})">
+            <h2>${capitalizedName}</h2>
+            <img src="${imageUrl}" alt="${pokemon.name}">
             <div class="info">
-                    <p>Basis-Erfahrung: ${pokemon.base_experience}</p>
-                    <p>Gewicht: ${pokemon.weight} Kg</p>
+                <p>Basis-Erfahrung: ${pokemon.base_experience}</p>
+                <p>Gewicht: ${pokemon.weight} Kg</p>
             </div>
         </div>
     `;
 }
 
 
-function handleCardClick(event) {
-    // Überprüfe, ob das angeklickte Element das Bild ist
-    if (event.target.tagName.toLowerCase() === 'img') {
-      const pokemonId = event.currentTarget.dataset.id; // Hole die ID aus dem data-Attribut
-        openModal(pokemonId);
-    }
-}
+
 
 
