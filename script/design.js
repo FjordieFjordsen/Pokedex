@@ -36,10 +36,69 @@ function pokemonDesign(pokemon) {
             <img src="${imageUrl}" alt="${pokemon.name}">
             <div class="info">
                 <p>Basis-Erfahrung: ${pokemon.base_experience}</p>
+                <p>Gewicht: ${pokemon.weight} Kg</p>
             </div>
         </div>
     `;
-  }
+}
+
+
+function createPokemonDetailsTemplate(pokemon) {
+    if (!pokemon) return ""; // Wenn kein Pokémon-Objekt vorhanden ist, gib eine leere Zeichenkette zurück
+    const capitalizedName = capitalizeFirstLetter(pokemon.name); // Erhalte den Namen mit Großbuchstaben am Anfang
+    const imageUrl = createPokemonImageUrl(pokemon.id); // Hole den Bild-URL (angenommen, diese Funktion existiert)
+    const typeList = pokemon.types.map(type => type.type.name).join(', '); // Erstelle eine kommagetrennte Liste der Typen
+    // Grundstruktur des HTML-Templates erstellen
+    let detailsTemplate = `
+    <div class="modal-content-wrapper">
+        <h3>${capitalizedName}</h3>
+        <div class="pokemon-image-container">
+            <img src="${imageUrl}" alt="${pokemon.name}">
+        </div>
+    </div>
+    <div class="tabs">
+        <button class="tablink" onclick="openTab(event, 'attacks')">Attacken</button>
+        <button class="tablink" onclick="openTab(event, 'abilities')">Fähigkeiten</button>
+        <button class="tablink" onclick="openTab(event, 'stats')">Statistiken</button>
+    </div>
+    `;
+
+    // Inhalt für den "Attacken"-Tab erstellen
+    const attackList = pokemon.moves.map(move => `<li>${capitalizeFirstLetter(move.move.name)}</li>`).join('');
+    detailsTemplate += `
+        <div id="attacks" class="tabcontent">
+            <ul>
+                ${attackList}
+            </ul>
+            <div class="closing">
+                <button class="close" onclick="closeTab()">Schließen</button>
+            </div>
+        </div>
+        
+    `;
+    // **(Optional) Inhalt für andere Tabs hinzufügen:**
+    // Hier kannst du den Inhalt für die Tabs "Fähigkeiten" und "Statistiken" hinzufügen.
+    // Verwende dafür die entsprechenden Daten aus dem Pokémon-Objekt (z.B. pokemon.abilities)
+    return detailsTemplate;
+}
+
+
+function openTab() {
+    document.getElementById('attacks').style.display = 'grid'
+}
+
+
+function closeTab() {
+    document.getElementById('attacks').style.display = 'none';
+}
+
+
+
+
+
+
+
+
 
 
 

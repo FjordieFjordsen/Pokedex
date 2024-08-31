@@ -4,8 +4,8 @@
   position: fixed;
   left: 20%;
   right: 20%;
-  bottom: 20%;
-  top: 20%;
+  bottom: 10%;
+  top: 10%;
   animation: fadeIn 0.9s ease-in-out;
   backdrop-filter: blur(2px);
   border-radius: 10px;
@@ -52,6 +52,8 @@ button {
 
 .modal-content {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: rgba(8, 7, 7, 0.779); 
   height: 80%;
   width: 80%;
@@ -59,9 +61,13 @@ button {
   border-radius: 12px;
 }
 
-
+.pokemon-image-container {
+  display: flex;
+  justify-content: center;
+}
 
 #second-modal img {
+  margin-top: 10px;
   width: 100px;
   height: auto;
   object-fit: cover;
@@ -70,15 +76,84 @@ button {
 h3 {
   color: white;
   text-decoration: underline;
+  text-align: center;
 }
 
 .modal-content-wrapper {
-  display: flex;
-  flex-direction: row-reverse;
+  width: 100%;
   margin-top: 10px;
-  margin-left: 10px;
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.tabs {
+    margin-top: 10px;
+    justify-content: space-evenly;
+    display: flex;
+    width: 100%;
+    transition: 500ms ease-in-out;
+}
+
+.tabs button {
+  cursor: pointer;
+}
+
+@media(max-width: 820px) {
+  .tabs button {
+    padding: 6px 6px;
+    font-size: 14px;
+  }
+
+}
+
+button.close {
+  margin-top: 6px;
+  padding: 6px 6px;
+  background-color: red;
+  cursor: pointer;
+}
+
+.tabcontent {
+  border: 1px solid rgba(211, 211, 211, 0.363);
+  border-radius: 4px;
+  display: none;
+  margin-top: 20px;
+  padding: 10px;
+  padding-left: 30px;
+  width: 90%;
+  height: 60%;
+  color: white;
+  display: grid;
+  gap: 20px; /* Abstand zwischen den Elementen */
+  overflow: auto;
+}
+
+.tabcontent ul {
+  column-count: 2;
+}
+
+@media(max-width: 640px) {
+  .tabcontent ul {
+    column-count: 1;
+  }
+  #second-modal img {
+    display: none;
+  }
+  .tabs {
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    display: flex;
+    transition: 500ms ease-in-out;
+    width: 50%;
+    gap: 6px;
+  }
+}
+
+
+
 
 
 
