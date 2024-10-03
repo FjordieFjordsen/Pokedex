@@ -1,30 +1,13 @@
 function toggleLoadingSpinner(show) {
     const loadingSpinner = document.querySelector('.loading');
-    if (show) {
-    loadingSpinner.style.display = 'block';
-    } else {
-    loadingSpinner.style.display = 'none';
+    if (!loadingSpinner) {
+        return; 
     }
+    loadingSpinner.style.display = show ? 'block' : 'none';
 }
 
 
-// Vor dem Laden der Daten:
-toggleLoadingSpinner(true); // Spinner anzeigen
-
-// Nach erfolgreichem Laden der Daten:
-toggleLoadingSpinner(false); // Spinner ausblenden
-
-
-const container = document.querySelector('.list');
-
-container.addEventListener('scroll', () => {
-if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-    // Benutzer ist am Ende angekommen
-    // Hier kannst du weitere Aktionen ausführen, z.B. ein Modal öffnen
+function playAudio() {
+    const audio = new Audio('audio/home.mp3');
+    audio.play();
 }
-});
-
-
-
-
-

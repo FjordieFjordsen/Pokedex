@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/icons/icons8-pokemon-48.png">
-    <title>PokedexDreiReiter</title>
+
+    <title>PokedexPreFinal</title>
     
     <link rel="stylesheet" href="style/standard.css">
     <link rel="stylesheet" href="style/fonts.css">
@@ -12,33 +13,76 @@
     <link rel="stylesheet" href="style/pokecard.css">
     <link rel="stylesheet" href="style/footer.css">
     <link rel="stylesheet" href="style/modal.css">
-    <script src="script/main.js"></script>
+    <link rel="stylesheet" href="style/loader.css">
+    <script src="script/main.js" defer></script>
+    <script src="script/filter.js"></script>
     <script src="script/design.js"></script>
     <script src="script/modal.js"></script>
+    <script src="script/skip.js"></script>
 </head>
 <body onload="init()">
-    <header>
-        <h1>Pokedex - Drei - Reiter</h1>
-        <div class="header-link">
-            <a href="#">Einstellung</a> |
-            <a href="#">Kontakt</a> |
-            <a href="#">ÜberUns</a>
-        </div>
-    </header>
-    <section class="main-section">
+    <div id="top"></div>
 
-        <div class="poke" id="pokeContent">
-            <div class="loading"></div>
-        </div>
+    <div class="side-wrapper">
 
-        <div id="modal" class="modal">
-            
-            <div id="second-modal" class="modal-content">
+
+        <header>
+            <h1>Poke(t)Dex . . .</h1>
+            <form>
+                <div class="search">
+                    <h4>Suche :</h4>
+                    <input class="input-search" type="text" id="searchInput" placeholder=" ersten drei Buschstaben" oninput="searchPokemon()">
+                </div>
+            </form>
+                <div class="header-link">
+                    <a href="#" class="developer-link" onclick="showDeveloperAlert()">Entwickler</a> |
+                    <a href="#">Kontakt</a> 
+                </div>
+        </header>
+
+
+        <section class="main-section">
+            <div id="overlay" class="overlay">
+                <div class="close-button">
+                    <button  onclick="closeOverlay()" >Schließen</button>
+                </div>
+                <div id="results" class="poke-list"></div>
             </div>
-            <button onclick="closeModal()">Close</button>
-        </div>
-    
-        
-    </section>
+
+            <div class="poke" id="pokeContent">
+                <div class="loading"></div>
+            </div>
+
+            <div id="modal" class="modal">
+                <div id="second-modal" class="modal-content">
+                    </div>
+                <img class="modal-image-right" src="assets/img/pfeil-rechts.png" alt="Pfeil" onclick="nextPokemon()">
+                <img class="modal-image-left" src="assets/img/pfeil-links.png" alt="Pfeil" onclick="previousPokemon()">                
+                <button onclick="closeModal()">Close</button>
+            </div>
+
+            <div class="load-more-container">
+                <button class="load-pokemon" id="load-more-btn" onclick="loadMorePokemon()" >Weitere Pokémon laden</button>
+            </div>
+        </section>
+
+
+        <footer>
+            <div class="imp">
+                <h4 class="xtra-size" >©2024</h4> |
+                <h4 class="xtra-size" >Impressum</h4>
+            </div>
+            <div class="sozial-links">
+                <a href="#"><img src="assets/img/facebook.png" alt="facebook"></a>
+                <a href="#"><img src="assets/img/insta.png" alt="instagram"></a>
+                <a href="#"><img src="assets/img/tripad.png" alt="tripadvisor"></a>
+                <a href="#top" onclick="playAudio()" class="audio-link">
+                    <img id="start" src="assets/img/startseite.png" alt="Seitenanfang">
+            </div>
+        </footer>
+
+
+    </div>
+
 </body> 
 </html>

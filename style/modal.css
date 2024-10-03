@@ -2,18 +2,20 @@
   background-color: rgba(8, 7, 7, 0.918); 
   z-index: 999;
   position: fixed;
-  left: 20%;
-  right: 20%;
-  bottom: 10%;
-  top: 10%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  top: 0%;
   animation: fadeIn 0.9s ease-in-out;
   backdrop-filter: blur(2px);
   border-radius: 10px;
-  overflow-y: hidden;
+  overflow-y: auto;
   display: none;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  max-width: 1920px;
+  margin: auto;
 }
 
 .fading-in {
@@ -42,12 +44,43 @@
   }
 }
 
+img.modal-image-left {
+  width: 44px;
+  position: absolute;
+  left: 10%;
+}
+
+img.modal-image-right {
+  width: 44px;
+  position: absolute;
+  right: 10%;
+}
+
+img.modal-image-left:hover,
+img.modal-image-right:hover {
+  cursor: pointer;
+  transform: scale(1.2); /* Beispiel: Bild wird beim Hover vergrößert */
+  transition: transform 0.3s ease-in-out; /* Sanfter Übergang */
+}
+
+
 button {
   padding: 6px 30px;
   background-color: green;
   color: white;
   border: none;
   border-radius: 10px;
+  margin-top: 10px;
+}
+
+.active-tab {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(39, 189, 39);
 }
 
 .modal-content {
@@ -56,7 +89,7 @@ button {
   align-items: center;
   background-color: rgba(8, 7, 7, 0.779); 
   height: 80%;
-  width: 80%;
+  width: 50%;
   border: 1px solid rgba(211, 211, 211, 0.403);
   border-radius: 12px;
 }
@@ -68,14 +101,15 @@ button {
 
 #second-modal img {
   margin-top: 10px;
-  width: 100px;
+  width: 80px;
   height: auto;
   object-fit: cover;
 }
 
 h3 {
+  font-family: 'Montserrat Alternates';
   color: white;
-  text-decoration: underline;
+  text-decoration: none;
   text-align: center;
 }
 
@@ -100,14 +134,6 @@ h3 {
   cursor: pointer;
 }
 
-@media(max-width: 820px) {
-  .tabs button {
-    padding: 6px 6px;
-    font-size: 14px;
-  }
-
-}
-
 button.close {
   margin-top: 6px;
   padding: 6px 6px;
@@ -115,31 +141,48 @@ button.close {
   cursor: pointer;
 }
 
+.tab-container {
+  max-width: 90%;
+}
+
 .tabcontent {
-  border: 1px solid rgba(211, 211, 211, 0.363);
-  border-radius: 4px;
   display: none;
   margin-top: 20px;
   padding: 10px;
-  padding-left: 30px;
-  width: 90%;
-  height: 60%;
+  width: auto;
+  height: auto;
+  max-height: 500px;
   color: white;
   display: grid;
-  gap: 20px; /* Abstand zwischen den Elementen */
+  justify-content: center;
   overflow: auto;
 }
 
 .tabcontent ul {
-  column-count: 2;
+  font-family: 'Montserrat Alternates';
+  font-size: 12px;
+  font-weight: 400;
+  column-count: 3;
+}
+
+@media(max-width: 820px) {
+  .tabs button {
+    padding: 6px 6px;
+    font-size: 14px;
+  }
+  .tabcontent ul {
+    column-count: 2;
+  }
 }
 
 @media(max-width: 640px) {
   .tabcontent ul {
     column-count: 1;
   }
-  #second-modal img {
-    display: none;
+  .tabcontent {
+    text-align: center;
+    padding: 0;
+    padding-left: 0;
   }
   .tabs {
     flex-direction: column;
@@ -151,6 +194,77 @@ button.close {
     gap: 6px;
   }
 }
+
+.closing {
+  display: flex;
+  justify-content: center;
+}
+
+.poke-list {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap; /* Erlaubt den Elementen, sich umzubrechen */
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 999; /* Stelle sicher, dass das Overlay über anderen Elementen liegt */
+  max-height: 70%; /* Begrenze die maximale Höhe */
+  overflow-y: auto; /* Für lange Inhalte */
+  gap: 20px; /* Abstand zwischen den Elementen */
+}
+
+.overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.897); /* Semitransparenter Hintergrund */
+  display: none; /* Standardmäßig ausgeblendet */
+  margin: auto;
+  top: 8%; /* Zentrierung nach oben */
+  left: 0%; /* Zentrierung nach links */
+  right: 0%; /* Zentrierung nach rechts */
+  bottom: 0%; /* Zentrierung nach unten */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  border-radius: 10px;
+  z-index: 998;
+}
+
+.close-button {
+display: flex;
+justify-content: center;
+margin-top: 2%;
+}
+
+.close-button button:hover {
+  cursor: pointer;
+  background-color: rgb(22, 196, 22);
+}
+
+@media(max-width:620px) {
+  button {
+    padding: 3px 20px;
+  }
+  .modal-content {
+    margin-top: 18%;
+  }
+}
+
+@media(max-width: 350px) {
+  .tabs button {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
 
 
 

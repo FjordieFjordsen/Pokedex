@@ -43,13 +43,13 @@ body {
 }
 
 .loading {
-    border: 4px solid white; /* Leichter grauer Rand */
-    border-top: 4px solid rgb(255,177,86); /* Blauer oberer Rand */
+    border: 4px solid #f3f3f3; /* Leichter grauer Rand */
+    border-top: 4px solid #1d851d; /* Blauer oberer Rand */
     border-radius: 50%; /* Rundet die Ecken ab für einen Kreis */
     width: 100px; /* Breite des Kreises */
     height: 100px; /* Höhe des Kreises */
     animation: spin 2s linear infinite; /* Animation: Drehung für 2 Sekunden, linear, unendlich oft */
-    
+    margin: 20px auto;
 }
 
 @keyframes spin {
@@ -72,3 +72,9 @@ body {
     background: linear-gradient(to bottom, rgba(187, 132, 61, 2), rgba(128, 14, 14, 1)); /* Farbverlauf beim Hover */
 }
 
+
+.closing {
+    height: 1px;
+    background-color: white;
+    border: 1px solid lightgrey;
+}
