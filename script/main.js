@@ -1,6 +1,6 @@
 let pokemons = []; 
 let currentOffset = 0; 
-const LIMIT = 10; 
+const LIMIT = 25; 
 const AUDIO_LOADING = new Audio('audio/hello.mp3');
 const AUDIO_CLOSE = new Audio('audio/close.mp3');
 const AUDIO_CLICK = new Audio('audio/click.mp3');
@@ -91,6 +91,12 @@ function openModal(index, playSound = true) {
             document.getElementById('modal').style.display = "flex";
             document.body.style.overflow = "hidden"; 
             showDetails(pokemon);
+            
+            const attacksButton = document.getElementById('attacksTabButton');
+            attacksButton.style.outline = '1px solid white'; 
+            
+            const developmentButton = document.getElementById('developmentTabButton');
+            developmentButton.style.outline = 'none'; 
         }
     } else {
         AUDIO_CLICK.play();

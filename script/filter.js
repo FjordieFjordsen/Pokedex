@@ -62,9 +62,11 @@ async function searchPokemon() {
 function showOverlay(show) {
     const overlay = document.getElementById('overlay');
     overlay.style.display = show ? 'block' : 'none';
+    document.body.style.overflow = show ? 'hidden' : 'auto';
 }
 
 
 function closeOverlay() {
     document.getElementById('overlay').style.display = 'none';
+    showOverlay(false);
 }

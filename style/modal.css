@@ -250,9 +250,6 @@ margin-top: 2%;
   button {
     padding: 3px 20px;
   }
-  .modal-content {
-    margin-top: 18%;
-  }
 }
 
 @media(max-width: 350px) {

@@ -139,12 +139,15 @@ let originalAttacksContent = '';
 
 async function openDevelopmentTab(pokemonId) {
     if (originalAttacksContent === '') {
-        console.log('Der Entwicklungstab-Button wurde gedrückt.'); 
-        
         originalAttacksContent = document.getElementById('attacks').innerHTML;
     }
-
     AUDIO_CLICK.play();
+
+    const developmentButton = document.getElementById('developmentTabButton');
+    developmentButton.style.outline = '1px solid white'; 
+
+    const attacksButton = document.getElementById('attacksTabButton');
+    attacksButton.style.outline = 'none'; 
 
     document.getElementById('attacks').innerHTML = ` 
         <div class="loader-container">
@@ -243,6 +246,13 @@ function capitalizeFirstLetter(string) {
 
 function openAttacksTab() {
     AUDIO_CLICK.play();
+
+    const attacksButton = document.getElementById('attacksTabButton');
+    attacksButton.style.outline = '1px solid white'; 
+
+    const developmentButton = document.getElementById('developmentTabButton');
+    developmentButton.style.outline = 'none'; 
+
     if (originalAttacksContent !== '') {
         document.getElementById('attacks').innerHTML = originalAttacksContent;
         originalAttacksContent = '';

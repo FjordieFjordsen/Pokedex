@@ -90,3 +90,8 @@ p {
     margin-bottom: 8px;
 }
 
+.active-tab {
+    border: 2px solid #ff5733; /* Beispiel für einen orangefarbenen Rand */
+    border-radius: 5px; /* Optionale Abrundung der Ecken */
+}
+
