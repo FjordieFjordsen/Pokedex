@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/icons/icons8-pokemon-48.png">
 
-    <title>PokedexPreFinal</title>
+
+    <title>PokedexFinalCutCopy</title>
     
     <link rel="stylesheet" href="style/standard.css">
     <link rel="stylesheet" href="style/fonts.css">
@@ -19,7 +21,9 @@
     <script src="script/design.js"></script>
     <script src="script/modal.js"></script>
     <script src="script/skip.js"></script>
+
 </head>
+
 <body onload="init()">
     <div id="top"></div>
 
@@ -44,25 +48,25 @@
         <section class="main-section">
             <div id="overlay" class="overlay">
                 <div class="close-button">
-                    <button  onclick="closeOverlay()" >Schließen</button>
+                    <button onclick="closeOverlay()">Schließen</button>
                 </div>
                 <div id="results" class="poke-list"></div>
             </div>
-
+        
             <div class="poke" id="pokeContent">
-                <div class="loading"></div>
+                <div class="loading" style="display: none;"></div>
             </div>
-
+        
             <div id="modal" class="modal">
-                <div id="second-modal" class="modal-content">
-                    </div>
+                <div id="second-modal" class="modal-content"></div>
                 <img class="modal-image-right" src="assets/img/pfeil-rechts.png" alt="Pfeil" onclick="nextPokemon()">
                 <img class="modal-image-left" src="assets/img/pfeil-links.png" alt="Pfeil" onclick="previousPokemon()">                
                 <button onclick="closeModal()">Close</button>
             </div>
-
+        
             <div class="load-more-container">
-                <button class="load-pokemon" id="load-more-btn" onclick="loadMorePokemon()" >Weitere Pokémon laden</button>
+                <button class="load-pokemon" id="load-more-btn" onclick="loadMorePokemon()">Weitere Pokémon laden</button>
+                <div class="loading" style="display: none;"></div> <!-- Spinner hier platziert -->
             </div>
         </section>
 

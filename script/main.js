@@ -5,23 +5,27 @@ const AUDIO_LOADING = new Audio('audio/hello.mp3');
 const AUDIO_CLOSE = new Audio('audio/close.mp3');
 const AUDIO_CLICK = new Audio('audio/click.mp3');
 const AUDIO_DEVELOP = new Audio('audio/develop.mp3');
+const AUDIO_HOME = new Audio('audio/home.mp3');
 
 
 async function init() {
+    toggleLoadingSpinner(true); 
     const basicPokemonData = await fetchBasicPokemonData(currentOffset, LIMIT);
     if (basicPokemonData && basicPokemonData.length > 0) {
         const detailedPokemonData = await fetchPokemonDetails(basicPokemonData);
-        
         pokemons = pokemons.concat(detailedPokemonData);
         renderPokemonDetails();
+    } else {
+        console.log('Keine Pokémon gefunden!');
     }
+    toggleLoadingSpinner(false); 
 }
 
 
 async function loadMorePokemon() {
+    toggleLoadingSpinner(true); 
     currentOffset += LIMIT; 
     const basicPokemonData = await fetchBasicPokemonData(currentOffset, LIMIT); 
-    
     if (basicPokemonData && basicPokemonData.length > 0) {
         const detailedPokemonData = await fetchPokemonDetails(basicPokemonData); 
         pokemons = pokemons.concat(detailedPokemonData); 
@@ -29,6 +33,7 @@ async function loadMorePokemon() {
     } else {
         console.log('Keine weiteren Pokémon gefunden!'); 
     }
+    toggleLoadingSpinner(false); 
 }
 
 
@@ -57,7 +62,6 @@ async function fetchPokemonDetails(pokemonList) {
             }
             return await pokemonResponse.json();
         });
-
         const allPokemonDetails = await Promise.all(pokemonDetailsPromises);
         return allPokemonDetails; 
     } catch (error) {
@@ -78,25 +82,25 @@ function renderPokemonDetails() {
 }
 
 
+function playLoadingSound() {
+    AUDIO_LOADING.volume = 0.1;
+    AUDIO_LOADING.play();
+}
+
+
 function openModal(index, playSound = true) {
     if (index >= 0 && index < pokemons.length) {
         if (playSound) {
-            AUDIO_LOADING.play(); 
+            playLoadingSound(); // Ton abspielen
         }
-        console.log("Index:", index);
-        
         const pokemon = pokemons[index];
         if (pokemon) {
             currentIndex = index; 
             document.getElementById('modal').style.display = "flex";
             document.body.style.overflow = "hidden"; 
             showDetails(pokemon);
-            
-            const attacksButton = document.getElementById('attacksTabButton');
-            attacksButton.style.outline = '1px solid white'; 
-            
-            const developmentButton = document.getElementById('developmentTabButton');
-            developmentButton.style.outline = 'none'; 
+            document.getElementById('searchInput').value = '';
+            setActiveTabStyle();
         }
     } else {
         AUDIO_CLICK.play();
@@ -105,7 +109,17 @@ function openModal(index, playSound = true) {
 }
 
 
+function setActiveTabStyle() {
+    const attacksButton = document.getElementById('attacksTabButton');
+    attacksButton.style.outline = '1px solid white'; 
+    
+    const developmentButton = document.getElementById('developmentTabButton');
+    developmentButton.style.outline = 'none'; 
+}
+
+
 function closeModal() {
+    AUDIO_LOADING.volume = 0.1;
     AUDIO_LOADING.play();
     const modal = document.getElementById('modal');
     modal.classList.add('fading-out');
@@ -126,7 +140,6 @@ function showDetails(pokemon) {
             return;
         }
         modal.innerHTML = createPokemonDetailsTemplate(pokemon);
-        
         renderMoveList(pokemon);
     } else {
         console.error("Das Pokemon-Objekt ist nicht definiert.");

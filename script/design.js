@@ -70,12 +70,14 @@ function createPokemonDetailsTemplate(pokemon) {
 
     let detailsTemplate = generateDetailsTemplateHTML(capitalizedName, imageUrl, pokemon.name, evolutionChainId);
 
-    const attackList = pokemon.moves.map(move => `<li>${capitalizeFirstLetter(move.move.name)}</li>`).join('');
-    detailsTemplate += generateAttacksTabHTML(attackList);
+    // Beschränke die Anzahl der Attacken auf maximal 30
+    const limitedAttackList = pokemon.moves.slice(0, 30).map(move => `<li>${capitalizeFirstLetter(move.move.name)}</li>`).join('');
+    
+    // Übergib die bereits erstellte HTML-Liste an die Funktion
+    detailsTemplate += generateAttacksTabHTML(limitedAttackList);
 
     return detailsTemplate;
 }
-
 
 function generateDetailsTemplateHTML(capitalizedName, imageUrl, pokemonName, pokemonId) {
     return `
@@ -88,22 +90,20 @@ function generateDetailsTemplateHTML(capitalizedName, imageUrl, pokemonName, pok
 
         <!-- Tab buttons -->
         <div class="tabs">
-                <button id="attacksTabButton" class="tablink" onclick="openAttacksTab()">Attacken</button>
-                <button id="developmentTabButton" class="tablink" onclick="openDevelopmentTab(${pokemonId})">Entwicklung</button>
+            <button id="attacksTabButton" class="tablink" onclick="openAttacksTab()">Attacken</button>
+            <button id="developmentTabButton" class="tablink" onclick="openDevelopmentTab(${pokemonId})">Entwicklung</button>
         </div>
     </div>`;
 }
 
-
 function generateAttacksTabHTML(attackList) {
+    // attackList wird hier direkt als HTML-String übergeben
     return `
     <div id="attacks" class="tabcontent">
         <ul>
             ${attackList}
         </ul>
-        <div class="closing"></div>
-    </div>
-    `;
+    </div>`;
 }
 
 
@@ -129,6 +129,7 @@ function openAttacksTab() {
     document.getElementById('evolution-tab').style.display = 'none';
 }
 
+
 function openDevelopmentTab() {
     document.getElementById('attacks').style.display = 'none';
     document.getElementById('evolution-tab').style.display = 'block';
@@ -137,10 +138,12 @@ function openDevelopmentTab() {
 
 let originalAttacksContent = ''; 
 
-async function openDevelopmentTab(pokemonId) {
+
+function setupDevelopmentTab() {
     if (originalAttacksContent === '') {
         originalAttacksContent = document.getElementById('attacks').innerHTML;
     }
+
     AUDIO_CLICK.play();
 
     const developmentButton = document.getElementById('developmentTabButton');
@@ -149,14 +152,18 @@ async function openDevelopmentTab(pokemonId) {
     const attacksButton = document.getElementById('attacksTabButton');
     attacksButton.style.outline = 'none'; 
 
-    document.getElementById('attacks').innerHTML = ` 
-        <div class="loader-container">
-            <div class="loader"></div>
-            <p>Lade Daten...</p>
-        </div>`;
+    document.getElementById('attacks').innerHTML = createLoadingHTML();
+}
 
+
+async function openDevelopmentTab(pokemonId) {
+    setupDevelopmentTab(); 
+    await loadEvolutionChain(pokemonId); 
+}
+
+
+async function loadEvolutionChain(pokemonId) {
     console.log('Pokemon ID:', pokemonId);
-
     try {
         document.getElementById('attacks').innerHTML += generateDevelopmentTabHTML();
         const evolutionChainId = await fetchEvolutionChainId(pokemonId);
@@ -166,6 +173,15 @@ async function openDevelopmentTab(pokemonId) {
         console.error('Fehler beim Laden der Evolutionskette:', error);
         document.getElementById('attacks').innerHTML = `<p>Fehler beim Laden der Entwicklung.</p>`;
     }
+}
+
+
+function createLoadingHTML() {
+    return `
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p>Lade Daten...</p>
+        </div>`;
 }
 
 
@@ -226,16 +242,22 @@ function renderEvolutionChainHTML(chain, isCurrent = true) {
     if (chain.evolves_to.length > 0) {
         for (let evo of chain.evolves_to) {
             const evoId = evo.species.url.split('/').slice(-2, -1)[0];
-            html += `
-                <div class="evolution-stage">
-                    <img src="assets/img/pfeil-nach-unten.png" alt="Pfeil" id="evolution-arrow"> 
-                    <p class="poke-name">${capitalizeFirstLetter(evo.species.name)}</p> <!-- Name über dem Bild -->
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evoId}.png" alt="${capitalizeFirstLetter(evo.species.name)}" class="evolution-image">
-                </div>`;
+            // Verwende die ausgelagerte Funktion
+            html += createEvolutionStageHTML(evoId, evo.species.name);
             html += renderEvolutionChainHTML(evo, false); 
         }
     }
     return html;
+}
+
+
+function createEvolutionStageHTML(evoId, evoName) {
+    return `
+        <div class="evolution-stage">
+            <img src="assets/img/pfeil-nach-unten.png" alt="Pfeil" id="evolution-arrow"> 
+            <p class="poke-name">${capitalizeFirstLetter(evoName)}</p> <!-- Name über dem Bild -->
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evoId}.png" alt="${capitalizeFirstLetter(evoName)}" class="evolution-image">
+        </div>`;
 }
 
 

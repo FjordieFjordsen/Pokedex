@@ -33,7 +33,7 @@ async function displayFilteredPokemon(filteredPokemon) {
         const cardHtml = pokemonDesign(details);
         resultsList.innerHTML += cardHtml;
     }
-    document.getElementById('searchInput').value = '';
+    
     document.getElementById('searchInput').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             event.preventDefault();  

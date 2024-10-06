@@ -13,6 +13,9 @@ function previousPokemon() {
 
 
 function showDeveloperAlert() {
-    AUDIO_DEVELOP.play();
-    alert("Diese Seite wurde entwickelt von René G aus L.");
+    AUDIO_DEVELOP.volume = 0.1; 
+    AUDIO_DEVELOP.play().catch(error => {
+    });
+    
+    alert("Diese Seite wurde entwickelt von René G aus L.");  
 }
